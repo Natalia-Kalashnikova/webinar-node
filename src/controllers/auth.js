@@ -82,14 +82,13 @@ export const registerUserController = async (req, res) => {
 
 //00:52
 export const loginUserController = async (req, res) => {
-  const user = await loginUser(req.body);
+  const session = await loginUser(req.body);
 
   // setupSessionCookies(res, session);
 
   res.json({
     status: 200,
     message: 'User is logged in!',
-    // data: { accessToken: session.accessToken },
-    data: { user },
+    data: { accessToken: session.accessToken },
   });
 };
