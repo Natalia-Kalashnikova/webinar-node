@@ -70,6 +70,18 @@
 //00:36
 import { createUser, loginUser } from "../services/auth.js";
 
+
+const setupSessionCookies = (res, session) => {
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    expire: 7 * 24 * 60 * 60,
+  });
+  res.cookie('sessionToken', session.refreshToken, {
+    httpOnly: true,
+    expire: 7 * 24 * 60 * 60,
+  });
+};
+
 export const registerUserController = async (req, res) => {
   const user = await createUser(req.body);
 
@@ -84,7 +96,7 @@ export const registerUserController = async (req, res) => {
 export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
 
-  // setupSessionCookies(res, session);
+  setupSessionCookies(res, session);
 
   res.json({
     status: 200,

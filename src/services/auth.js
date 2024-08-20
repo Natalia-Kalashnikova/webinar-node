@@ -111,6 +111,7 @@ const createSession = () => {
 
  const user = await User.findOne({ email: payload.email });
 
+
   if (user) {
     throw createHttpError(
       409,
@@ -121,7 +122,7 @@ const createSession = () => {
     ...payload,
     password: hashedPassword,
   });
- };
+};
 
 
 // 1:23
