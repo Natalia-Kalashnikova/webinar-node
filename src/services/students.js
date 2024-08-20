@@ -87,23 +87,6 @@ export const createStudent = async (payload) => {
   return student;
 };
 
-// export const upsertStudent = async (id, payload, options = {}) => {
-//   const rawResult = await Student.findByIdAndUpdate(id, payload, {
-//     new: true,
-//     includeResultMetadata: true,
-//     ...options,
-//   });
-
-//   if (!rawResult || rawResult.value) {
-//     throw createHttpError(404, 'Student not found');
-//   }
-
-//     return {
-//     student: rawResult.value,
-//     isNew: !rawResult?.lastErrorObject?.updatedExisting,
-//   };
-// };
-
 export const upsertStudent = async (id, payload, options = {}) => {
   const rawResult = await Student.findByIdAndUpdate(id, payload, {
     new: true,

@@ -1,6 +1,7 @@
-// **WEBINAR-CODE**
+// **WEBINAR-CODE** 5(1)
 
 // import { Router } from 'express';
+// import { registerUserController } from '../controllers/auth.js';
 // import { ctrWrapper } from '../middlewares/ctrlWrapper.js';
 // import {
 //   loginUserController,
@@ -8,7 +9,6 @@
 //   refreshTokenController,
 //   registerUserController
 // } from '../controllers/auth.js';
-// import { registerUserSchema } from '../validation/registerUserSchema.js';
 // import { validateBody } from '../middlewares/validateBody.js';
 // import { loginUserSchema } from '../validation/loginSchemaValidator.js';
 
