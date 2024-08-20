@@ -1,5 +1,7 @@
 // **WEBINAR-CODE** 5(1)
 
+
+
 // import {
 //   createUser,
 //   loginUser,
@@ -66,6 +68,7 @@
 // };
 
 //00:36
+import { createUser } from "../services/auth.js";
 
 export const registerUserController = async (req, res) => {
   const user = await createUser(req.body);

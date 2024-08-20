@@ -28,8 +28,6 @@
 //       'User with this email is already present in database!',
 //     );
 //   }
-//   return await User.create(payload);
-
 //   return await User.create({
 //     ...payload,
 //     password: hashedPassword,
@@ -93,4 +91,8 @@
 
 //00:39
 
+import { User } from "../db/models/user.js";
 
+export const createUser = async (payload) => {
+    return await User.create(payload);
+};
