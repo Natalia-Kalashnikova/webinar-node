@@ -68,7 +68,7 @@
 // };
 
 //00:36
-import { createUser } from "../services/auth.js";
+import { createUser, loginUser } from "../services/auth.js";
 
 export const registerUserController = async (req, res) => {
   const user = await createUser(req.body);
@@ -76,6 +76,20 @@ export const registerUserController = async (req, res) => {
   res.json({
     status: 200,
     message: 'User is created!',
+    data: { user },
+  });
+};
+
+//00:52
+export const loginUserController = async (req, res) => {
+  const user = await loginUser(req.body);
+
+  // setupSessionCookies(res, session);
+
+  res.json({
+    status: 200,
+    message: 'User is logged in!',
+    // data: { accessToken: session.accessToken },
     data: { user },
   });
 };

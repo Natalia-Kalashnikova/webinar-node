@@ -26,7 +26,9 @@
 //   validateBody(loginUserSchema),
 //   ctrWrapper(loginUserController),
 // );
+
 // authRouter.post('/refresh-token', ctrWrapper(refreshTokenController));
+
 // authRouter.post('/logout', ctrWrapper(logoutController));
 
 // export default authRouter;
@@ -35,9 +37,10 @@
 
 import { Router } from 'express';
 import { ctrWrapper } from '../middlewares/ctrlWrapper.js';
-import { registerUserController } from '../controllers/auth.js';
+import { loginUserController, registerUserController } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserSchema } from '../validation/registerUserSchema.js';
+import { loginUserSchema } from '../validation/loginSchemaValidator.js';
 
 const authRouter = Router();
 
@@ -45,6 +48,12 @@ authRouter.post(
   '/register',
   validateBody(registerUserSchema),
   ctrWrapper(registerUserController),
+);
+
+authRouter.post(
+  '/login',
+  validateBody(loginUserSchema),
+  ctrWrapper(loginUserController),
 );
 
 export default authRouter;
