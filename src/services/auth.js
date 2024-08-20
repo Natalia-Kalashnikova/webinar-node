@@ -94,16 +94,25 @@
 import createHttpError from "http-errors";
 import { User } from "../db/models/user.js";
 import bcrypt from 'bcrypt';
-// import crypto from 'crypto';
+import crypto from 'crypto';
 
-export const createUser = async (payload) => {
-    const hashedPassword = await bcrypt.hash(payload.password, 10);
+ export const createUser = async (payload) => {
+  const hashedPassword = await bcrypt.hash(payload.password, 10);
 
+ const user = await User.findOne({ email: payload.email });
+
+  if (user) {
+    throw createHttpError(
+      409,
+      'User with this email is already present in database!',
+    );
+  }
   return await User.create({
     ...payload,
     password: hashedPassword,
   });
-};
+ };
+
 
 export const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ email });
@@ -117,12 +126,17 @@ export const loginUser = async ({ email, password }) => {
   if (!areEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
+
+// 1:05
 //     await Session.deleteOne({ userId: user._id });
 
 //   return await Session.create({
 //     userId: user._id,
 //     ...createSession(),
-    //       });
+//       });
 
-    return user;
+    const accessToken = crypto.randomBytes(40).toString('base64');
+    const refreshToken = crypto.randomBytes(40).toString('base64');
+
+    return {accessToken, refreshToken};
 };
