@@ -38,4 +38,12 @@ const userSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
+//0:49
+
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
 export const User = model('users', userSchema);
