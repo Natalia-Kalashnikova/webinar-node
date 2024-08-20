@@ -37,7 +37,7 @@
 
 import { Router } from 'express';
 import { ctrWrapper } from '../middlewares/ctrlWrapper.js';
-import { loginUserController, registerUserController } from '../controllers/auth.js';
+import { loginUserController, registerUserController, logoutController } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserSchema } from '../validation/registerUserSchema.js';
 import { loginUserSchema } from '../validation/loginSchemaValidator.js';
@@ -55,5 +55,8 @@ authRouter.post(
   validateBody(loginUserSchema),
   ctrWrapper(loginUserController),
 );
+
+
+authRouter.post('/logout', ctrWrapper(logoutController));
 
 export default authRouter;

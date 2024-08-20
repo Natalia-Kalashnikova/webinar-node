@@ -68,9 +68,9 @@
 // };
 
 //00:36
-import { createUser, loginUser } from "../services/auth.js";
+import { createUser, loginUser, logoutUser } from "../services/auth.js";
 
-
+//1:38
 const setupSessionCookies = (res, session) => {
   res.cookie('sessionId', session._id, {
     httpOnly: true,
@@ -103,4 +103,18 @@ export const loginUserController = async (req, res) => {
     message: 'User is logged in!',
     data: { accessToken: session.accessToken },
   });
+};
+
+
+//1:44
+export const logoutController = async (req, res) => {
+  await logoutUser({
+    sessionId: req.cookies.sessionId,
+    sessionToken: req.cookies.sessionToken,
+  });
+
+  res.clearCookie('sessionId');
+  res.clearCookie('sessionToken');
+
+  res.status(204).send();
 };
