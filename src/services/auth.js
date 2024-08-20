@@ -1,4 +1,4 @@
-// **WEBINAR-CODE**
+// **WEBINAR-CODE** 5(1)
 
 // import createHttpError from "http-errors";
 // import { User } from "../db/models/user.js";
@@ -16,7 +16,7 @@
 //   };
 // };
 
-// export const createUser = async (payload) => {
+//  export const createUser = async (payload) => {
 //   const hashedPassword = await bcrypt.hash(payload.password, 10);
 
 //  const user = await User.findOne({ email: payload.email });
@@ -28,6 +28,7 @@
 //       'User with this email is already present in database!',
 //     );
 //   }
+//   return await User.create(payload);
 
 //   return await User.create({
 //     ...payload,
