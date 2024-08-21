@@ -1,4 +1,4 @@
-// **WEBINAR-CODE** 5(2) 00:50
+// **WEBINAR-CODE** 5(2)  00:50
 
 import createHttpError from "http-errors";
 import { Session } from "../db/models/session.js";
