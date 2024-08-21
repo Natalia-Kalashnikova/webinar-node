@@ -1,5 +1,6 @@
-// **WEBINAR-CODE** 5(1)
+// **WEBINAR-CODE* 5-2
 
+//00:37
 import Joi from 'joi';
 
 export const registerUserSchema = Joi.object({

@@ -1,4 +1,5 @@
-// **WEBINAR-CODE**
+// **WEBINAR-CODE* 5-2
+
 import { Schema, model } from "mongoose";
 
 const studentSchema = new Schema({
@@ -25,6 +26,7 @@ const studentSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    parentId: { type: Schema.ObjectId, required: true },
 },
     {
         timestamps: true,
@@ -33,44 +35,4 @@ const studentSchema = new Schema({
 );
 
 
-
 export const Student = model('students', studentSchema);
-
-// **WEBINAR-CODE**
-// import { Schema, model } from "mongoose";
-
-// const studentSchema = new Schema({
-//     name: {
-//         type: String,
-//         required: true,
-//     },
-//     age: {
-//         type: Number,
-//         required: true,
-//     },
-//     gender: {
-//         type: String,
-//         required: true,
-//         enum:['male', 'female', 'other'],
-//     },
-//     avgMark: {
-//         type: Number,
-//         required: true,
-//         min: 1,
-//         max: 12,
-//     },
-//     onDuty: {
-//         type: Boolean,
-//         default: false,
-//     },
-//     parentId: { type: Schema.ObjectId, required: true },
-// },
-//     {
-//         timestamps: true,
-//         versionKey: false,
-//     },
-// );
-
-
-
-// export const Student = model('students', studentSchema);

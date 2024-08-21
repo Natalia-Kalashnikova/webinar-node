@@ -1,7 +1,8 @@
-// **WEBINAR-CODE**
-// import Joi from 'joi';
+// **WEBINAR-CODE* 5-2
 
-// export const loginUserSchema = Joi.object({
-//   password: Joi.string().required().min(2).max(12),
-//   email: Joi.string().required().email(),
-// });
+import Joi from 'joi';
+
+export const loginUserSchema = Joi.object({
+  password: Joi.string().required().min(2).max(12),
+  email: Joi.string().required().email(),
+});

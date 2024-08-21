@@ -1,66 +1,67 @@
-// **WEBINAR-CODE** 5(1)
+// **WEBINAR-CODE* 5-2
 
-// import {
-//   createUser,
-//   loginUser,
-//   logoutUser,
-//   refreshSession
-// } from "../services/auth.js";
+//00:36
+import { createUser, loginUser, logoutUser, refreshSession } from "../services/auth.js";
 
-// const setupSessionCookies = (res, session) => {
-//   res.cookie('sessionId', session._id, {
-//     httpOnly: true,
-//     expire: 7 * 24 * 60 * 60,
-//   });
-//   res.cookie('sessionToken', session.refreshToken, {
-//     httpOnly: true,
-//     expire: 7 * 24 * 60 * 60,
-//   });
-// };
+//1:38
+const setupSessionCookies = (res, session) => {
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    expire: 7 * 24 * 60 * 60,
+  });
+  res.cookie('sessionToken', session.refreshToken, {
+    httpOnly: true,
+    expire: 7 * 24 * 60 * 60,
+  });
+};
 
-// export const registerUserController = async (req, res) => {
-//   const user = await createUser(req.body);
+export const registerUserController = async (req, res) => {
+  const user = await createUser(req.body);
 
-//   res.json({
-//     status: 200,
-//     message: 'User is created!',
-//     data: { user },
-//   });
-// };
+  res.json({
+    status: 200,
+    message: 'User is created!',
+    data: { user },
+  });
+};
 
-// export const loginUserController = async (req, res) => {
-//   const session = await loginUser(req.body);
+//00:52
+export const loginUserController = async (req, res) => {
+  const session = await loginUser(req.body);
 
-//   setupSessionCookies(res, session);
+  setupSessionCookies(res, session);
 
-//   res.json({
-//     status: 200,
-//     message: 'User is logged in!',
-//     data: { accessToken: session.accessToken },
-//   });
-// };
+  res.json({
+    status: 200,
+    message: 'User is logged in!',
+    data: { accessToken: session.accessToken },
+  });
+};
 
-// export const logoutController = async (req, res) => {
-//   await logoutUser({
-//     sessionId: req.cookies.sessionId,
-//     sessionToken: req.cookies.sessionToken,
-//   });
 
-//   res.clearCookie('sessionId');
-//   res.clearCookie('sessionToken');
+//1:44
+export const logoutController = async (req, res) => {
+  await logoutUser({
+    sessionId: req.cookies.sessionId,
+    sessionToken: req.cookies.sessionToken,
+  });
 
-//   res.status(204).send();
-// };
+  res.clearCookie('sessionId');
+  res.clearCookie('sessionToken');
 
-// export const refreshTokenController = async (req, res) => {
-//   const { sessionId, sessionToken } = req.cookies;
-//   const session = await refreshSession({ sessionId, sessionToken });
+  res.status(204).send();
+};
 
-//   setupSessionCookies(res, session);
+// 02-00:18
+export const refreshTokenController = async (req, res) => {
+  const { sessionId, sessionToken } = req.cookies;
+  const session = await refreshSession({ sessionId, sessionToken });
 
-//   res.json({
-//     status: 200,
-//     message: 'Token refreshed successfully!',
-//     data: { accessToken: session.accessToken },
-//   });
-// };
+  setupSessionCookies(res, session);
+
+  res.json({
+    status: 200,
+    message: 'Token refreshed successfully!',
+    data: { accessToken: session.accessToken },
+  });
+};

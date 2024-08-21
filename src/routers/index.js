@@ -1,12 +1,12 @@
-// **WEBINAR-CODE** 5(1)
+// **WEBINAR-CODE* 5-2
 
-// import { Router } from 'express';
-// import studentsRouter from './students.js';
-// import authRouter from './auth.js';
+import { Router } from 'express';
+import studentsRouter from './students.js';
+import authRouter from './auth.js';
 
-// const rootRouter = Router();
+const rootRouter = Router();
 
-// rootRouter.use('/students', studentsRouter);
-// rootRouter.use('/auth', authRouter);
+rootRouter.use('/students', studentsRouter);
+rootRouter.use('/auth', authRouter);
 
-// export default rootRouter;
+export default rootRouter;
