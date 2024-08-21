@@ -1,4 +1,4 @@
-// **WEBINAR-CODE**
+// **WEBINAR-CODE* 5-2
 
 export const ctrWrapper = (controller) =>async(req, res, next)=> {
     try {
@@ -8,11 +8,4 @@ export const ctrWrapper = (controller) =>async(req, res, next)=> {
     }
 };
 
-// **WEBINAR-CODE**
-// export const ctrWrapper = (controller) =>async(req, res, next)=> {
-//     try {
-//       await controller(req, res, next);
-//     } catch (error) {
-//         next(error);
-//     }
-// };
+
