@@ -26,7 +26,6 @@
 // export const User = model('users', userSchema);
 
 
-//0:27
 import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema(
@@ -34,11 +33,15 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
+    role: {
+      type: String,
+      required: true,
+      default: ['parent'],
+      enum: ['parent', 'teacher'],
+    },
   },
   { timestamps: true, versionKey: false },
 );
-
-//0:49
 
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
