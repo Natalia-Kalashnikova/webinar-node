@@ -2,17 +2,56 @@
 
 //00:30
 
+// import { Router } from 'express';
+// import { ctrWrapper } from '../middlewares/ctrlWrapper.js';
+// import {
+//   loginUserController,
+//   registerUserController,
+//   logoutController,
+//   refreshTokenController
+// } from '../controllers/auth.js';
+// import { validateBody } from '../middlewares/validateBody.js';
+// import { registerUserSchema } from '../validation/registerUserSchema.js';
+// import { loginUserSchema } from '../validation/loginSchemaValidator.js';
+
+// const authRouter = Router();
+
+// authRouter.post(
+//   '/register',
+//   validateBody(registerUserSchema),
+//   ctrWrapper(registerUserController),
+// );
+
+// authRouter.post(
+//   '/login',
+//   validateBody(loginUserSchema),
+//   ctrWrapper(loginUserController),
+// );
+
+// authRouter.post('/refresh-token', ctrWrapper(refreshTokenController));
+
+// authRouter.post('/logout', ctrWrapper(logoutController));
+
+// export default authRouter;
+
+
+// **WEBINAR-CODE* 6
+
+//00:43
+
 import { Router } from 'express';
 import { ctrWrapper } from '../middlewares/ctrlWrapper.js';
 import {
   loginUserController,
   registerUserController,
   logoutController,
-  refreshTokenController
+  refreshTokenController,
+  sendResetPasswordEmailController
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserSchema } from '../validation/registerUserSchema.js';
 import { loginUserSchema } from '../validation/loginSchemaValidator.js';
+import { sendResetPasswordSchema } from '../validation/sendResetPasswordEmailSchema.js';
 
 const authRouter = Router();
 
@@ -31,5 +70,11 @@ authRouter.post(
 authRouter.post('/refresh-token', ctrWrapper(refreshTokenController));
 
 authRouter.post('/logout', ctrWrapper(logoutController));
+
+authRouter.post(
+  '/request-reset-password-email',
+  validateBody(sendResetPasswordSchema),
+  ctrWrapper(sendResetPasswordEmailController),
+);
 
 export default authRouter;

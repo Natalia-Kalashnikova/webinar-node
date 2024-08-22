@@ -94,3 +94,5 @@ export const logoutUser = async ({ sessionId, sessionToken }) => {
     refreshToken: sessionToken,
   });
 };
+
+export const sendResetPassword = async(email) => {};
