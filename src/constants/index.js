@@ -12,6 +12,8 @@
 
 // **WEBINAR-CODE* 6
 
+import path from 'node:path';
+
 export const ENV_VARS = {
   PORT: 'PORT',
   MONGODB_USER: 'MONGODB_USER',
@@ -26,4 +28,6 @@ export const ENV_VARS = {
   JWT_SECRET: 'JWT_SECRET',
   FRONTEND_HOST: 'FRONTEND_HOST',
 };
+
+export const TEMPLATE_DIR = path.join(process.cwd(), 'src', 'templates');
 

@@ -104,8 +104,11 @@ import crypto from 'crypto';
 import { Session } from "../db/models/session.js";
 import jwt from 'jsonwebtoken';
 import { env } from '../utils/env.js';
-import { ENV_VARS } from '../constants/index.js';
+import { ENV_VARS, TEMPLATE_DIR } from '../constants/index.js';
 import { sendMail } from "../utils/sendMail.js";
+import handlebars from 'handlebars';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 
 const createSession = () => {
@@ -209,12 +212,22 @@ export const sendResetPassword = async (email) => {
     },
   );
 
+  // 1:44 6-2
+  const templateSource = await fs.readFile(
+  path.join(TEMPLATE_DIR, 'send-reset-password-email.html'),
+
+);
+
+const template = handlebars.compile(templateSource.toString());
+
+const html = template({
+  name: user.name,
+  link: `${env(ENV_VARS.FRONTEND_HOST)}/reset-password?token=${token}`,
+});
+
   try {
     await sendMail({
-      html: `
-    <h1>Hello!</h1>
-    <p>Here is your reset link <a href="${env(ENV_VARS.FRONTEND_HOST)}/reset-password?token=${token}">Link</a></p>
-    `,
+      html,
       to: email,
       from: env(ENV_VARS.SMTP_FROM),
       subject: 'Reset your password',
