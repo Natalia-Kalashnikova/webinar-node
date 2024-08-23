@@ -69,7 +69,13 @@
 // **WEBINAR-CODE* 6
 
 
-import { createUser, loginUser, logoutUser, refreshSession, sendResetPassword } from "../services/auth.js";
+import {
+  createUser,
+  loginUser,
+  logoutUser,
+  refreshSession,
+  sendResetPassword
+} from "../services/auth.js";
 
 
 const setupSessionCookies = (res, session) => {
@@ -138,9 +144,9 @@ export const refreshTokenController = async (req, res) => {
 export const sendResetPasswordEmailController = async (req, res) => {
   await sendResetPassword(req.body.email);
 
-    res.json({
+  res.json({
     status: 200,
-    message: 'Reset password email was successfully sent!!',
+    message: 'Reset password email was successfully sent!',
     data: {},
   });
 };

@@ -1,10 +1,8 @@
 // **WEBINAR-CODE* 6
 
 import nodemailer from 'nodemailer';
-
 import { ENV_VARS } from '../constants/index.js';
 import { env } from '../utils/env.js';
-
 
 const transport = nodemailer.createTransport({
   host: env(ENV_VARS.SMTP_HOST),
@@ -15,6 +13,6 @@ const transport = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (options) => {
-  return await transport.sendEmail(options);
+export const sendMail = async (options) => {
+  return await transport.sendMail(options);
 };
