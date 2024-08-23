@@ -190,6 +190,7 @@ export const logoutUser = async ({ sessionId, sessionToken }) => {
     refreshToken: sessionToken,
   });
 };
+
 //00:58
 export const sendResetPassword = async (email) => {
   const user = await User.findOne({ email });
@@ -199,20 +200,27 @@ export const sendResetPassword = async (email) => {
   }
   const resetToken = jwt.sign(
     {
-      sub: user._id,
       email,
     },
-    env('JWT_SECRET'),
+    env(ENV_VARS.JWT_SECRET),
     {
-      expiresIn: '15m',
+      expiresIn: '5m',
     },
   );
 
-  await sendMail({
-    from: env(ENV_VARS.SMTP_FROM),
-    to: email,
-    subject: 'Reset your password',
-    // html:"<h1>Hello</h1>"
-    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
-  });
+  try {
+    await sendMail({
+      html: `
+    <h1>Hello!</h1>
+    <p>Here is your reset link <a href="${env(ENV_VARS.FRONTEND_HOST)}/reset-password?token=${resetToken}">Link</a></p>
+    `,
+      to: email,
+      from: env(ENV_VARS.SMTP_FROM),
+      subject: 'Reset your password',
+    });
+  } catch (err) {
+    console.log(err);
+
+    throw createHttpError(500, 'Problem with sending emails');
+  }
 };
