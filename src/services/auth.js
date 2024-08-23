@@ -198,8 +198,9 @@ export const sendResetPassword = async (email) => {
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
-  const resetToken = jwt.sign(
+  const token = jwt.sign(
     {
+      sub: user.id,
       email,
     },
     env(ENV_VARS.JWT_SECRET),
@@ -212,7 +213,7 @@ export const sendResetPassword = async (email) => {
     await sendMail({
       html: `
     <h1>Hello!</h1>
-    <p>Here is your reset link <a href="${env(ENV_VARS.FRONTEND_HOST)}/reset-password?token=${resetToken}">Link</a></p>
+    <p>Here is your reset link <a href="${env(ENV_VARS.FRONTEND_HOST)}/reset-password?token=${token}">Link</a></p>
     `,
       to: email,
       from: env(ENV_VARS.SMTP_FROM),
@@ -223,4 +224,23 @@ export const sendResetPassword = async (email) => {
 
     throw createHttpError(500, 'Problem with sending emails');
   }
+};
+
+export const resetPassword = async ({ token, password }) => {
+  let tokenPayload;
+  try {
+    tokenPayload = jwt.verify(token, env(ENV_VARS.JWT_SECRET));
+  } catch (err) {
+    throw createHttpError(401, err.message);
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await User.findOneAndUpdate(
+    {
+      _id: tokenPayload.sub,
+      email: tokenPayload.email,
+    },
+    { password: hashedPassword },
+  );
 };
