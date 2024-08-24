@@ -1,3 +1,4 @@
+// **WEBINAR-CODE* 6-2
 import fs from 'node:fs/promises';
 
 export const createFolderIfDoesNotExist = async (path) => {
