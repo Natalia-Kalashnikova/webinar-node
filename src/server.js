@@ -9,7 +9,7 @@ import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import rootRouter from './routers/index.js';
 import cookieParser from 'cookie-parser';
-// import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
+import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 
 export const startServer = () => {
   const app = express();
@@ -34,7 +34,7 @@ export const startServer = () => {
 
   app.use(rootRouter);
 
-  // app.use(notFoundMiddleware);
+  app.use(notFoundMiddleware);
 
   app.use(errorHandlerMiddleware);
 
