@@ -27,7 +27,7 @@ const studentSchema = new Schema({
         default: false,
     },
     parentId: { type: Schema.ObjectId, required: true },
-    avatarUrl: { type: String },
+    // avatarUrl: { type: String },
 },
     {
         timestamps: true,
