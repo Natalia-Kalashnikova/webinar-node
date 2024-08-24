@@ -27,6 +27,7 @@ export const ENV_VARS = {
   SMTP_FROM: 'SMTP_FROM',
   JWT_SECRET: 'JWT_SECRET',
   FRONTEND_HOST: 'FRONTEND_HOST',
+  BACKEND_HOST: 'BACKEND_HOST',
 };
 
 export const TEMPLATE_DIR = path.join(process.cwd(), 'src', 'templates');
