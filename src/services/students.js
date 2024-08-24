@@ -1,7 +1,10 @@
-// **WEBINAR-CODE* 5-2
+// **WEBINAR-CODE* 5-6
 
 import createHttpError from 'http-errors';
 import { Student } from '../db/models/student.js';
+// import { saveFileToLocalMachine } from '../utils/saveFileToLocalMachine.js';
+import { saveToCloudinary } from '../utils/saveToCloudinary.js';
+
 
 const createPaginationInformation = (page, perPage, count) => {
   const totalPages = Math.ceil(count / perPage);
@@ -85,8 +88,14 @@ export const getStudentById = async (id) => {
   return student;
 };
 
-export const createStudent = async (payload, userId) => {
-  const student = await Student.create({ ...payload, parentId: userId });
+export const createStudent = async ({ avatar, ...payload }, userId) => {
+  const url = await saveToCloudinary(avatar);
+
+  const student = await Student.create({
+    ...payload,
+    parentId: userId,
+    avatarUrl: url,
+  });
 
   return student;
 };
