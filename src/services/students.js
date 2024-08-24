@@ -3,6 +3,7 @@
 import createHttpError from 'http-errors';
 import { Student } from '../db/models/student.js';
 import { saveFileToLocalMachine } from '../utils/saveFileToLocalMachine.js';
+import { saveToCloudinary } from '../utils/saveToCloudinary.js';
 
 
 const createPaginationInformation = (page, perPage, count) => {
@@ -88,8 +89,8 @@ export const getStudentById = async (id) => {
 };
 
 export const createStudent = async ({ avatar, ...payload }, userId) => {
-  const url = await saveFileToLocalMachine(avatar);
-  
+  const url = await saveToCloudinary(avatar);
+
   const student = await Student.create({
     ...payload,
     parentId: userId,
