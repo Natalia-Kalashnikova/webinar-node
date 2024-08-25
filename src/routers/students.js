@@ -40,12 +40,14 @@ studentsRouter.post(
 studentsRouter.patch(
     '/:studentId',
     checkChildPermissions('teacher', 'parent'),
+    upload.single('avatar'),
     validateBody(updateStudentSchema),
     ctrWrapper(patchStudentController)
 );
 
 studentsRouter.put(
     '/:studentId',
+    upload.single('avatar'),
     validateBody(createStudentSchema),
     ctrWrapper(putStudentController)
 );

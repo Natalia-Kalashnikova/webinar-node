@@ -1,9 +1,8 @@
-// **WEBINAR-CODE* 5-6
+// **WEBINAR-CODE* 6
 
 import createHttpError from 'http-errors';
 import { Student } from '../db/models/student.js';
-// import { saveFileToLocalMachine } from '../utils/saveFileToLocalMachine.js';
-import { saveToCloudinary } from '../utils/saveToCloudinary.js';
+import { saveFile } from '../utils/saveFile.js';
 
 
 const createPaginationInformation = (page, perPage, count) => {
@@ -91,8 +90,6 @@ export const getStudentById = async (id) => {
 
 export const createStudent = async ({ avatar, ...payload }, userId) => {
   const url = await saveToCloudinary(avatar);
-// export const createStudent = async ({ avatar, ...payload }, userId) => {
-//   const url = await saveFileToLocalMachine(avatar);
 
   const student = await Student.create({
     ...payload,
@@ -103,8 +100,17 @@ export const createStudent = async ({ avatar, ...payload }, userId) => {
   return student;
 };
 
-export const upsertStudent = async (id, payload, options = {}) => {
-  const rawResult = await Student.findByIdAndUpdate(id, payload, {
+export const upsertStudent = async (
+  id,
+  { avatar, ...payload },
+  options = {}
+) => {
+  const url = await saveFile(avatar);
+
+  const rawResult = await Student.findByIdAndUpdate(
+    id,
+    { ...payload, avatarUrl: url },
+    {
     new: true,
     includeResultMetadata: true,
     ...options,
