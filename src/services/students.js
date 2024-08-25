@@ -89,7 +89,7 @@ export const getStudentById = async (id) => {
 
 
 export const createStudent = async ({ avatar, ...payload }, userId) => {
-  const url = await saveToCloudinary(avatar);
+  const url = await saveFile(avatar);
 
   const student = await Student.create({
     ...payload,
