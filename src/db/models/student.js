@@ -1,4 +1,4 @@
-// **WEBINAR-CODE* 5-2
+// **WEBINAR-CODE* 6
 
 import { Schema, model } from "mongoose";
 

@@ -1,15 +1,3 @@
-// **WEBINAR-CODE* 5-2
-
-// export const ENV_VARS = {
-//     PORT: 'PORT',
-//     MONGODB_USER: 'MONGODB_USER',
-//     MONGODB_PASSWORD: 'MONGODB_PASSWORD',
-//     MONGODB_URL: 'MONGODB_URL',
-//     MONGODB_DB: 'MONGODB_DB',
-// };
-
-
-
 // **WEBINAR-CODE* 6
 
 import path from 'node:path';
