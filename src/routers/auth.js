@@ -10,7 +10,8 @@ import {
   logoutController,
   refreshTokenController,
   sendResetPasswordEmailController,
-  resetPasswordController
+  resetPasswordController,
+  getOAuthUrlController
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserSchema } from '../validation/registerUserSchema.js';
@@ -50,7 +51,7 @@ authRouter.post(
 
 authRouter.post(
   '/get-oauth-url',
-  ctrlWrapper(getOAuthUrlController)
+  ctrWrapper(getOAuthUrlController)
 );
 
 
