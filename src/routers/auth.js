@@ -48,5 +48,10 @@ authRouter.post(
   ctrWrapper(resetPasswordController),
 );
 
+authRouter.post(
+  '/get-oauth-url',
+  ctrlWrapper(getOAuthUrlController)
+);
+
 
 export default authRouter;
