@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { env } from './env.js';
 import { ENV_VARS } from '../constants/index.js';
-// import createHttpError from 'http-errors';
+import createHttpError from 'http-errors';
 
 const googleConfig = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), 'google.json')).toString(),
@@ -26,19 +26,19 @@ export const generateOAuthURL = () => {
   });
 };
 
-// export const validateGoogleOAuthCode = async (code) => {
-//   try {
-//     const { tokens } = await client.getToken(code);
+export const validateGoogleOAuthCode = async (code) => {
+  try {
+    const { tokens } = await client.getToken(code);
 
-//     const idToken = tokens.id_token;
+    const idToken = tokens.id_token;
 
-//     if (!idToken) throw createHttpError(401);
+    if (!idToken) throw createHttpError(401);
 
-//     const ticket = await client.verifyIdToken({ idToken });
+    const ticket = await client.verifyIdToken({ idToken });
 
-//     return ticket.getPayload();
-//   } catch (err) {
-//     console.log(err);
-//     throw createHttpError(500, 'Error during google oauth authorization');
-//   }
-// };
+    return ticket.getPayload();
+  } catch (err) {
+    console.log(err);
+    throw createHttpError(500, 'Error during google oauth authorization');
+  }
+};
