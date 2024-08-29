@@ -12,6 +12,7 @@ import { sendMail } from "../utils/sendMail.js";
 import handlebars from 'handlebars';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { validateGoogleOAuthCode } from "../utils/googleOAuth.js";
 
 
 const createSession = () => {
@@ -159,4 +160,35 @@ export const resetPassword = async ({ token, password }) => {
     },
     { password: hashedPassword },
   );
+};
+
+//01:26
+export const loginOrSignupWithGoogleOAuth = async (code) => {
+  const payload = await validateGoogleOAuthCode(code);
+
+  if (!payload) throw createHttpError(401);
+
+  let user = await User.findOne({ email: payload.email });
+
+  if (!user) {
+    const hashedPassword = await bcrypt.hash(
+      crypto.randomBytes(40).toString('base64'),
+      10,
+    );
+
+    user = await User.create({
+      name: payload.given_name + ' ' + payload.family_name,
+      email: payload.email,
+      password: hashedPassword,
+    });
+  }
+
+  await Session.deleteOne({
+    userId: user._id,
+  });
+
+  return await Session.create({
+    userId: user._id,
+    ...createSession(),
+  });
 };

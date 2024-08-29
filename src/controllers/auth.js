@@ -2,6 +2,7 @@
 
 import {
   createUser,
+  loginOrSignupWithGoogleOAuth,
   loginUser,
   logoutUser,
   refreshSession,
@@ -105,6 +106,20 @@ export const getOAuthUrlController = (req, res) => {
     data: {
       url,
     },
+  });
+};
+
+//01:06
+export const verifyGoogleOAuthController = async (req, res) => {
+  const { code } = req.body;
+  const session = await loginOrSignupWithGoogleOAuth(code);
+
+  setupSessionCookies(res, session);
+
+  res.json({
+    status: 200,
+    message: 'Logged in with Google OAuth!',
+    data: { accessToken: session.accessToken },
   });
 };
 
